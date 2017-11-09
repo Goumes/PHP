@@ -12,17 +12,20 @@ require_once "tabla2.php";
 $db = Database::getInstance();
 $mysqli = $db->getConnection();
 
-$sql_query2 = "INSERT INTO". \Constantes_DB\tabla1::TABLE_NAME . "(".\Constantes_DB\tabla1::ID . ", " . \Constantes_DB\tabla1::NOMBRE .")"
-    . "VALUES ('10', 'pepe')";
 
-if ($mysqli->query ($sql_query2) === TRUE)
+$sql_query2 = "INSERT INTO ". \Constantes_DB\tabla1::TABLE_NAME . "(".\Constantes_DB\tabla1::ID . ", " . \Constantes_DB\tabla1::NOMBRE . ", " . \Constantes_DB\tabla1::APELLIDOS .  ", " . \Constantes_DB\tabla1::ALIAS .  ", " . \Constantes_DB\tabla1::FNAC .")"
+    . "VALUES ('12', 'pepe', 'java', 'insert', '2017-11-9' )";
+
+//Insertar nulos así INSERT INTO `addresses` (`street`, `city`, `state`, `zip`) VALUES (NULL, NULL, NULL, NULL);
+
+if ($mysqli->query ($sql_query2))
 {
     echo "insert hecho";
 }
 
 else
 {
-    echo "la has liao paco";
+    echo "Error: ".$sql_query2 . "<br/>" . $db->error;
 }
 
 $sql_query = "SELECT U.". \Constantes_DB\tabla1::NOMBRE . " , U."
@@ -35,12 +38,12 @@ $sql_query = "SELECT U.". \Constantes_DB\tabla1::NOMBRE . " , U."
     . \Constantes_DB\tabla2::NOMBRE . " AS Nombre2 , M."
     . \Constantes_DB\tabla2::RAZA . " "
     ." FROM ". \Constantes_DB\tabla1::TABLE_NAME ." AS U "
-    ." INNER JOIN "
+    ." LEFT JOIN "
     .\Constantes_DB\tabla2::TABLE_NAME." AS M "
     ." ON U.ID = M.ID_Usuarios ";
 
 
-$result = $mysqli->query($sql_query);
+$result = $mysqli->query($sql_query); //Cambiar a bind_result
 
 if ($result->num_rows > 0) {
     echo '<table border=\"1\">';

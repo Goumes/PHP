@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="98dec9e4-447c-42c2-be60-65aa4ee34912" name="xampp" url="http://localhost/CodeAnywhere">
-        <fileTransfer port="0" mountedRoot="/opt/lampp/htdocs/CodeAnywhere" accessType="MOUNT" />
+      <webServer id="98dec9e4-447c-42c2-be60-65aa4ee34912" name="xampp" url="http://localhost:8080/Prueba1/">
+        <fileTransfer port="0" mountedRoot="C:\xampp\htdocs\Prueba1" accessType="MOUNT" />
       </webServer>
     </option>
   </component>

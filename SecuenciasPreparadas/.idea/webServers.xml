@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="70dd8e9c-0760-4a0b-849e-f3efedd48fb0" name="xampp" url="http://localhost/SecuenciasPreparadas">
+        <fileTransfer port="0" mountedRoot="/opt/lampp/htdocs/SecuenciasPreparadas" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>

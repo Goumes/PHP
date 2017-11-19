@@ -1,0 +1,21 @@
+CREATE TABLE Equipos
+(
+    Nombre VARCHAR (50) UNIQUE NOT NULL,
+    numeroJugadores INT NOT NULL,
+    
+    CONSTRAINT PK_Equipos PRIMARY KEY (Nombre)
+)
+
+GO
+
+CREATE TABLE Jugadores
+(
+    Nombre VARCHAR (50) NOT NULL,
+    Apellidos VARCHAR (50) NOT NULL,
+    Edad INT NOT NULL,
+    Foto VARCHAR (200),
+    NombreEquipo VARCHAR (50),
+    
+    CONSTRAINT PK_Jugadores PRIMARY KEY (Nombre),
+    CONSTRAINT FK_Jugadores_Equipos FOREIGN KEY (NombreEquipo) REFERENCES Equipos (Nombre) ON UPDATE CASCADE ON DELETE CASCADE
+)

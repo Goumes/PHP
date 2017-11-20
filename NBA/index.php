@@ -1,7 +1,6 @@
 <?php
 require_once "Database.php";
 require_once "tabla1.php";
-require_once "tabla2.php";
 /**
  * Created by PhpStorm.
  * User: aleja

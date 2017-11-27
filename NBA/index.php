@@ -1,6 +1,7 @@
 <?php
 require_once "Database.php";
 require_once "tabla1.php";
+
 /**
  * Created by PhpStorm.
  * User: aleja
@@ -39,6 +40,7 @@ $sql_query = "SELECT ". \Constantes_DB\tabla1::NOMBRE . " , "
 $result = $mysqli->query($sql_query);
 
 
+
 if ($result->num_rows > 0)
 {
     echo '<table border=\"1\">';
@@ -50,19 +52,27 @@ if ($result->num_rows > 0)
     echo '</tr>';
     // output data of each row
     while ($row = $result->fetch_assoc()) {
-        echo '<tr>';
-        echo '<form action = "infoTeam.php" method ="post">';
-        echo '<input type="hidden" name="nameTeam" value="'.$row[\Constantes_DB\tabla1::NOMBRE].'"></input>';
-        echo '<td><input type="submit" name="infoTeam" value="Info"/></td>';
-        echo '</form>';
-        echo '<td>' . $row[\Constantes_DB\tabla1::NOMBRE] . '</td>';
-        echo '<td>' . $row[\Constantes_DB\tabla1::N_JUGADORES] . '</td>';
-        echo '<form action = "" method ="post">';
-        echo '<input type="hidden" name="nameTeam" value="'.$row[\Constantes_DB\tabla1::NOMBRE].'"></input>';
-        echo '<td><input type="submit" name="deleteItem" value="Borrar" /></td>';
-        echo '</form>';
+            $numJugadores=$mysqli->prepare("Select COUNT(Nombre) as NumJugadores FROM Jugadores WHERE NombreEquipo=?");
+            $numJugadores->bind_param('s', $row[\Constantes_DB\tabla1::NOMBRE]);
+            $numJugadores->execute();
+            $resultNumJugadores = $numJugadores->get_result();
 
-        echo '</tr>';
+
+            echo '<tr>';
+            echo '<form action = "infoTeam.php" method ="post">';
+            echo '<input type="hidden" name="nameTeam" value="' . $row[\Constantes_DB\tabla1::NOMBRE] . '"></input>';
+            echo '<td><input type="submit" name="infoTeam" value="Info"/></td>';
+            echo '</form>';
+            echo '<td>' . $row[\Constantes_DB\tabla1::NOMBRE] . '</td>';
+            while ($rowNumJugadores = $resultNumJugadores->fetch_assoc()) {
+                echo '<td>' . $rowNumJugadores["NumJugadores"] . '</td>';
+            }
+            echo '<form action = "" method ="post">';
+            echo '<input type="hidden" name="nameTeam" value="' . $row[\Constantes_DB\tabla1::NOMBRE] . '"></input>';
+            echo '<td><input type="submit" name="deleteItem" value="Borrar" /></td>';
+            echo '</form>';
+
+            echo '</tr>';
     }
     echo '</table>';
     echo '<br/>';

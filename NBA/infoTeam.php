@@ -58,7 +58,7 @@ if ($stmt = $mysqli->prepare($sql_query)) {
         echo '<td>' . $nombre . '</td>';
         echo '<td>' . $apellidos . '</td>';
         echo '<td>' . $edad . '</td>';
-        echo '<td>' . $foto . '</td>';
+        echo '<td> <img src="' .$foto. '" alt="Mountain View" width="50" height="50"></td>';
         echo '<form action = "" method ="post">';
         echo '<input type="hidden" name="playerName" value="' . $nombre . '"></input>';
         echo '<input type="hidden" name="nameTeam" value="' . $_POST ['nameTeam'] . '"></input>';
@@ -70,7 +70,7 @@ if ($stmt = $mysqli->prepare($sql_query)) {
     echo '</table>';
     echo '<br/>';
 
-    echo '<form action = "formulario2.php" method = "post">';
+    echo '<form action = "Formulario2.php" method = "post">';
     echo '<input type="submit" value="Añadir un jugador"/>';
     echo '</form>';
 }

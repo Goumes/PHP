@@ -1,0 +1,6 @@
+El usuario utilizado es:
+
+username = Goumes
+password = 123
+
+No me da tiempo a hacer las validaciones que me gustaría en el data-reception.

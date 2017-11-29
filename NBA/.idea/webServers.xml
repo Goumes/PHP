@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="3889781e-1fdf-4b46-ac9c-4531be7e5dbd" name="xampp" url="http://localhost/NBA">
+        <fileTransfer port="0" mountedRoot="/opt/lampp/htdocs/NBA" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -41,7 +41,7 @@ class Database
         //dbname = myBD
         //username = myuser
         //password = mypassword
-        $config = parse_ini_file('config/config.ini');
+        $config = parse_ini_file('config.ini');
 
         // Try and connect to the database
         $this->_connection = new mysqli($config['host'], $config['username'],

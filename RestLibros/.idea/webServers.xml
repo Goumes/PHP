@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="aef016ae-99fa-4d44-bae6-413bf2b6f518" name="xampp" url="http://localhost/restLibros">
+        <fileTransfer port="0" mountedRoot="/opt/lampp/htdocs/rest" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>

@@ -101,6 +101,20 @@ class LibroHandlerModel
         $db_connection->close();
     }
 
+    public static function insertLibro (LibroModel $libro)
+    {
+        $db = DatabaseModel::getInstance();
+        $db_connection = $db->getConnection();
+
+        $query = "INSERT INTO " . \ConstantesDB\ConsLibrosModel::TABLE_NAME . "(". \ConstantesDB\ConsLibrosModel::COD .", ".\ConstantesDB\ConsLibrosModel::TITULO. ", ".\ConstantesDB\ConsLibrosModel::PAGS.") VALUES (?, ?, ?)";
+
+        $prep_query = $db_connection->prepare($query);
+        $prep_query->bind_param('isi', $libro->getCodigo(), $libro->getTitulo(), $libro->getNumpag());
+        $prep_query->execute();
+        $db_connection->close();
+
+    }
+
     //returns true if $id is a valid id for a book
     //In this case, it will be valid if it only contains
     //numeric characters, even if this $id does not exist in

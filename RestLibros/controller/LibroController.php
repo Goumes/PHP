@@ -71,4 +71,30 @@ class LibroController extends Controller
 
     }
 
+    public function managePostVerb(Request $request)
+    {
+        $id = null;
+        $response = null;
+        $code = null;
+
+        if (isset($request->getUrlElements()[2])) {
+            $id = $request->getUrlElements()[2];
+        }
+
+        $libro = $request->getBodyParameters(); //Arreglar esto y listo
+
+        LibroHandlerModel::deleteLibro($libro);
+
+
+        if (LibroHandlerModel::isValid($id)) {
+            $code = '404';
+        } else {
+            $code = '400';
+        }
+
+
+        $response = new Response('405', null, null, $request->getAccept());
+        $response->generate();
+    }
+
 }

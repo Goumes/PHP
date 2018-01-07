@@ -76,14 +76,19 @@ class LibroController extends Controller
         $id = null;
         $response = null;
         $code = null;
+        $libro = new LibroModel();
 
         if (isset($request->getUrlElements()[2])) {
             $id = $request->getUrlElements()[2];
         }
 
-        $libro = $request->getBodyParameters(); //Arreglar esto y listo
+        $array = $request->getBodyParameters();
 
-        LibroHandlerModel::deleteLibro($libro);
+        $libro->setTitulo($array[0]);
+        $libro->setCodigo($array[1]);
+        $libro->setNumpag($array[2]);
+
+        LibroHandlerModel::insertLibro($libro);
 
 
         if (LibroHandlerModel::isValid($id)) {

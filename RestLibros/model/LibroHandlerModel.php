@@ -101,18 +101,70 @@ class LibroHandlerModel
         $db_connection->close();
     }
 
-    public static function insertLibro (LibroModel $libro)
+    public static function postLibro (LibroModel $libroCrema)
     {
         $db = DatabaseModel::getInstance();
         $db_connection = $db->getConnection();
 
-        $query = "INSERT INTO " . \ConstantesDB\ConsLibrosModel::TABLE_NAME . "(". \ConstantesDB\ConsLibrosModel::COD .", ".\ConstantesDB\ConsLibrosModel::TITULO. ", ".\ConstantesDB\ConsLibrosModel::PAGS.") VALUES (?, ?, ?)";
+        //$valid = self::isValid($id);
+
+        //if ($valid === true || $id == null) {
+            $query = "INSERT INTO " . \ConstantesDB\ConsLibrosModel::TABLE_NAME .
+                " (".
+                \ConstantesDB\ConsLibrosModel::COD.
+                ", ".\ConstantesDB\ConsLibrosModel::PAGS.
+                ", ".\ConstantesDB\ConsLibrosModel::TITULO.
+                ") " . " VALUES (?, ?, ?)";
+
+
+            //if ($id != null) {
+                //$query = $query . " WHERE " . \ConstantesDB\ConsLibrosModel::COD . " = ?";
+            //}
+
+            $prep_query = $db_connection->prepare($query);
+
+            $codigo = $libroCrema->getCodigo();
+            $numpag = $libroCrema->getNumpag();
+            $titulo = $libroCrema->getTitulo();
+
+            //if ($id != null) {
+            $prep_query->bind_param('iis', $codigo, $numpag, $titulo);
+            //}
+
+            $prep_query->execute();
+
+        //}
+
+        $db_connection->close();
+    }
+
+    public static function putLibro (LibroModel $libroCrema, $id)
+    {
+        $db = DatabaseModel::getInstance();
+        $db_connection = $db->getConnection();
+
+        $valid = self::isValid($id);
+
+        if ($valid === true || $id == null) {
+        $query = "UPDATE " . \ConstantesDB\ConsLibrosModel::TABLE_NAME .
+            " SET ".\ConstantesDB\ConsLibrosModel::TITULO. " = ?, ".
+            \ConstantesDB\ConsLibrosModel::PAGS. " = ?, ".
+            \ConstantesDB\ConsLibrosModel::COD. " = ?".
+            " WHERE " . \ConstantesDB\ConsLibrosModel::COD . " = ?";
 
         $prep_query = $db_connection->prepare($query);
-        $prep_query->bind_param('isi', $libro->getCodigo(), $libro->getTitulo(), $libro->getNumpag());
-        $prep_query->execute();
-        $db_connection->close();
 
+        $codigo = $libroCrema->getCodigo();
+        $numpag = $libroCrema->getNumpag();
+        $titulo = $libroCrema->getTitulo();
+
+        $prep_query->bind_param('siii', $titulo, $numpag, $codigo, $id);
+
+        $prep_query->execute();
+
+        }
+
+        $db_connection->close();
     }
 
     //returns true if $id is a valid id for a book

@@ -73,33 +73,83 @@ class LibroController extends Controller
 
     public function managePostVerb(Request $request)
     {
+
         $id = null;
         $response = null;
         $code = null;
-        $libro = new LibroModel();
+        $libro = null;
+        $codigo = null;
+        $numpag = null;
+        $titulo = null;
 
+        if ($request->getBodyParameters() != null) {
+            $codigo = $request->getBodyParameters()->codigo;
+            $numpag = $request->getBodyParameters()->numpag;
+            $titulo = $request->getBodyParameters()->titulo;
+        }
+
+        else
+        {
+            $code = 400;
+        }
+
+        $libro = new LibroModel($codigo, $titulo, $numpag);
+
+        //if the URI refers to a libro entity, instead of the libro collection
+        /*
         if (isset($request->getUrlElements()[2])) {
             $id = $request->getUrlElements()[2];
         }
+        */
 
-        $array = $request->getBodyParameters();
-
-        $libro->setTitulo($array[0]);
-        $libro->setCodigo($array[1]);
-        $libro->setNumpag($array[2]);
-
-        LibroHandlerModel::insertLibro($libro);
+        LibroHandlerModel::postLibro($libro);
 
 
-        if (LibroHandlerModel::isValid($id)) {
-            $code = '404';
-        } else {
-            $code = '400';
+        $response = new Response($code, null, null, $request->getAccept());
+        $response->generate();
+
+    }
+
+    public function managePutVerb(Request $request)
+    {
+
+        $id = null;
+        $response = null;
+        $code = null;
+        $libro = null;
+        $codigo = null;
+        $numpag = null;
+        $titulo = null;
+
+        $id = $request->getUrlElements()[2];
+
+        if ($request->getBodyParameters() != null) {
+            $titulo = $request->getBodyParameters()->titulo;
+            $codigo = $request->getBodyParameters()->codigo;
+            $numpag = $request->getBodyParameters()->numpag;
+
         }
 
+        else
+        {
+            $code = 400;
+        }
 
-        $response = new Response('405', null, null, $request->getAccept());
+        $libro = new LibroModel($codigo, $titulo, $numpag);
+
+        //if the URI refers to a libro entity, instead of the libro collection
+        /*
+        if (isset($request->getUrlElements()[2])) {
+            $id = $request->getUrlElements()[2];
+        }
+        */
+
+        LibroHandlerModel::putLibro($libro, $id);
+
+
+        $response = new Response($code, null, null, $request->getAccept());
         $response->generate();
+
     }
 
 }

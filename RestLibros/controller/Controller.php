@@ -6,7 +6,6 @@
  *  which extend this class will only need to override their supported HTTP Verbs.*/
 class Controller
 {
-
     public function manageGetVerb(Request $request)
     {
         $response = new Response('405', null, null, $request->getAccept());

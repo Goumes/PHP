@@ -61,6 +61,12 @@ if (isset($_SERVER['HTTP_ACCEPT'])) {
     $accept = $_SERVER['HTTP_ACCEPT'];
 }
 
+if (isset($_SERVER['PHP_AUTH_USER']) && isset($_SERVER['PHP_AUTH_PW']))
+{
+    $user = $_SERVER['PHP_AUTH_USER'];
+    $pass = $_SERVER['PHP_AUTH_PW'];
+}
+
 
 $req = new Request($verb, $url_elements, $query_string, $body, $content_type, $accept);
 
@@ -69,8 +75,18 @@ $req = new Request($verb, $url_elements, $query_string, $body, $content_type, $a
 $controller_name = ucfirst($url_elements[1]) . 'Controller';
 if (class_exists($controller_name)) {
     $controller = new $controller_name();
+    $userHandler = new UserHandlerModel();
     $action_name = 'manage' . ucfirst(strtolower($verb)) . 'Verb';
-    $controller->$action_name($req);
+
+    if ($userHandler->verifyPassword($user, $pass))
+    {
+        $controller->$action_name($req);
+    }
+
+    else
+    {
+        echo 'rip hermano';
+    }
     //$result = $controller->$action_name($req);
     //print_r($result);
 } //If class does not exist, we will send the request to NotFoundController

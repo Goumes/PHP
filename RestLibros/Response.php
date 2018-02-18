@@ -1,4 +1,5 @@
 <?php
+use Firebase\JWT\JWT;
 
 // This class will generate the HTTP headers and the body to send to the client
 class Response
@@ -8,6 +9,8 @@ class Response
     private $headers;
     private $body;
     private $format;
+    private $token;
+    private $key;
 
     // will receive the response code (200 by default), an associative array with the headers, the data for the body,
     // and the format to output the body (retrieved from the request that the client made)
@@ -17,6 +20,7 @@ class Response
         $this->headers = $headers;
         $this->body = $body;
         $this->format = $format;
+        $this->key = 'Sdw1s9x8@';
     }
 
     public function generate()
@@ -27,6 +31,8 @@ class Response
 
                 if (!empty($this->body)) {
                     $this->headers['Content-Type'] = "application/json";
+                    $this->token = Auth::SignIn();
+                    $this->headers['Authorization'] = "Bearer ".$this->token;
                     $this->body = json_encode($this->body);
                 }
                 break;
@@ -57,6 +63,16 @@ class Response
         if (!empty($this->body)) {
             echo $this->body;
         }
+    }
+
+    function generarToken ()
+    {
+       $time = time();
+       $datosToken = array(
+           'exp' => $time + (60*60),
+           'iat'=>$time
+       );
+       $this->token=JWT::encode($datosToken, $this->key);
     }
 
 

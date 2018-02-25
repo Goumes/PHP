@@ -87,11 +87,6 @@ if (class_exists($controller_name)) {
         {
             $controller->$action_name($req);
         }
-
-        else
-        {
-            echo 'USUARIO Y CONTRASEÑA INCORRECTOS, CRACK';
-        }
     }
 
     else

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="6fc2e905-482c-4de1-99ad-244729d38785" name="xampp" url="http://localhost/restContactos">
+        <fileTransfer port="0" mountedRoot="C:\xampp\htdocs\restContactos" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>
